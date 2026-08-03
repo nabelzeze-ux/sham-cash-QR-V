@@ -1,55 +1,84 @@
-# sham-cash-QR-V
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code - Sham Cash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sham Cash QR</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
             background: #0b0b0b;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             font-family: 'Arial', sans-serif;
         }
-        .qr-container {
+
+        .container {
             text-align: center;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .qr-container h2 {
+
+        h2 {
             color: #ffd700;
-            margin-bottom: 20px;
             font-size: 24px;
-            text-shadow: 0 0 10px #ffd700;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
-        .qr-container img {
-            max-width: 300px;
-            width: 90vw;
-            border-radius: 15px;
+
+        /* كارت الـ QR ذو الخلفية البيضاء */
+        .qr-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 20px;
             border: 3px solid #ffd700;
-            box-shadow: 0 0 30px rgba(255,215,0,0.3);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 320px;
+            width: 85vw;
+        }
+
+        .qr-card img {
+            width: 100%;
+            height: auto;
+            max-width: 260px;
+            display: block;
+            border-radius: 10px;
+        }
+
+        /* النص أسفل الباركود */
+        .scan-text {
+            color: #222222;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="qr-container">
-        <h2>📷 Sham Cash QR Code</h2>
-        <img id="qrImage" src="" alt="QR Code">
+
+    <div class="container">
+        <h2> Sham Cash QR</h2>
+        
+        <!-- الكارت الأبيض المحتوي على الرمز والنص -->
+        <div class="qr-card">
+            <!-- استبدل YOUR_IMAGE_URL_HERE برابط صورة الباركود الخاص بك -->
+            <img src="YOUR_IMAGE_URL_HERE" alt="Sham Cash QR Code">
+            <p class="scan-text">أمسح رمز الاستجابة السريع</p>
+        </div>
     </div>
 
-    <script>
-        // الحصول على رابط الصورة من URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const imgUrl = urlParams.get('img');
-        
-        if (imgUrl) {
-            document.getElementById('qrImage').src = decodeURIComponent(imgUrl);
-        } else {
-            document.getElementById('qrImage').src = 'https://via.placeholder.com/300x300/1a1a2e/ffd700?text=QR+Code';
-        }
-    </script>
 </body>
 </html>
