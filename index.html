@@ -39,7 +39,7 @@
         /* كارت الـ QR ذو الخلفية البيضاء */
         .qr-card {
             background-color: #ffffff;
-            padding: 20px;
+            padding: 25px 20px 20px 20px;
             border-radius: 20px;
             border: 3px solid #ffd700;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.35);
@@ -48,6 +48,8 @@
             align-items: center;
             max-width: 320px;
             width: 85vw;
+            min-height: 300px;
+            justify-content: center;
         }
 
         .qr-card img {
@@ -65,20 +67,62 @@
             font-weight: bold;
             margin-top: 15px;
         }
+
+        /* نصوص حالات التحميل والخطأ */
+        .status-msg {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .loading { color: #555555; }
+        .error { color: #d32f2f; }
+        .sub-text { color: #777777; font-size: 13px; margin-top: 5px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2> Sham Cash QR</h2>
+        <h2>📷 Sham Cash QR</h2>
         
         <!-- الكارت الأبيض المحتوي على الرمز والنص -->
         <div class="qr-card">
-            <!-- استبدل YOUR_IMAGE_URL_HERE برابط صورة الباركود الخاص بك -->
-            <img src="YOUR_IMAGE_URL_HERE" alt="Sham Cash QR Code">
-            <p class="scan-text">أمسح رمز الاستجابة السريع</p>
+            <div id="qrContent">
+                <p class="status-msg loading">⏳ جاري تحميل الباركود...</p>
+            </div>
         </div>
     </div>
 
+    <script>
+        // جلب رابط الصورة الممرر من البوت عبر الـ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var imgUrl = urlParams.get('img');
+        
+        var qrContent = document.getElementById('qrContent');
+        
+        if (imgUrl) {
+            var img = document.createElement('img');
+            img.src = decodeURIComponent(imgUrl);
+            img.alt = 'Sham Cash QR Code';
+            
+            // عند نجاح تحميل الصورة من سيرفرات تيليجرام
+            img.onload = function() {
+                qrContent.innerHTML = '';
+                qrContent.appendChild(img);
+                
+                // إضافة النص تحت الصورة
+                var text = document.createElement('p');
+                text.className = 'scan-text';
+                text.innerText = 'أمسح رمز الاستجابة السريع';
+                qrContent.appendChild(text);
+            };
+            
+            // في حال كان رابط تيليجرام منتهي الصلاحية أو فيه مشكلة
+            img.onerror = function() {
+                qrContent.innerHTML = '<p class="status-msg error">❌ تعذر تحميل الباركود</p><p class="sub-text">يرجى إعادة إرساله من لوحة التحكم</p>';
+            };
+        } else {
+            // إذا فتح الصفحة بدون ما يمرر الرابط
+            qrContent.innerHTML = '<p class="status-msg error">❌ لم يتم تعيين باركود بعد</p><p class="sub-text">يرجى رفع الرمز من البوت أولاً</p>';
+        }
+    </script>
 </body>
 </html>
