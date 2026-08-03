@@ -14,7 +14,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            background: #ffffff; /* جعل الخلفية كلها بيضاء */
+            background: #ffffff; /* خلفية بيضاء نقية بالكامل */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,34 +29,33 @@
             align-items: center;
         }
 
+        /* العنوان باللون الأزرق الفاتح وبدون إيموجي */
         h2 {
-            color: #ffd700; /* الحفاظ على اللون الذهبي للعنوان */
-            font-size: 24px;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* إضافة تأثير توهج ناعم */
+            color: #00aaff; /* لون أزرق فاتح جذاب */
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        /* كارت الـ QR ذو الخلفية البيضاء */
+        /* حاوية الصورة أبيض نقي */
         .qr-card {
             background-color: #ffffff;
-            padding: 10px; /* تقليل البادينج ليكون المربع مطابقاً للرمز */
-            border-radius: 10px; /* تقليل انحناء الحواف */
-            box-shadow: none; /* إزالة الظل لإعطاء تصميم مسطح ونظيف */
+            padding: 10px;
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             max-width: 320px;
             width: 85vw;
-            min-height: auto; /* إزالة الحد الأدنى للارتفاع */
             justify-content: center;
         }
 
         .qr-card img {
             width: 100%;
             height: auto;
-            max-width: 260px;
+            max-width: 280px;
             display: block;
-            border-radius: 5px; /* تقليل انحناء حواف الصورة */
+            border-radius: 8px;
         }
 
         /* النص أسفل الباركود */
@@ -64,7 +63,7 @@
             color: #222222;
             font-size: 18px;
             font-weight: bold;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         /* نصوص حالات التحميل والخطأ */
@@ -80,9 +79,8 @@
 <body>
 
     <div class="container">
-        <h2>Sham Cash QR 📷</h2> /* نقل الأيقونة لليسار */
+        <h2>Sham Cash QR</h2>
         
-        <!-- الكارت الأبيض المحتوي على الرمز والنص -->
         <div class="qr-card">
             <div id="qrContent">
                 <p class="status-msg loading">⏳ جاري تحميل الباركود...</p>
@@ -102,7 +100,7 @@
             img.src = decodeURIComponent(imgUrl);
             img.alt = 'Sham Cash QR Code';
             
-            // عند نجاح تحميل الصورة من سيرفرات تيليجرام
+            // عند نجاح تحميل الصورة
             img.onload = function() {
                 qrContent.innerHTML = '';
                 qrContent.appendChild(img);
@@ -114,12 +112,12 @@
                 qrContent.appendChild(text);
             };
             
-            // في حال كان رابط تيليجرام منتهي الصلاحية أو فيه مشكلة
+            // في حال وجود مشكلة بالرابط
             img.onerror = function() {
                 qrContent.innerHTML = '<p class="status-msg error">❌ تعذر تحميل الباركود</p><p class="sub-text">يرجى إعادة إرساله من لوحة التحكم</p>';
             };
         } else {
-            // إذا فتح الصفحة بدون ما يمرر الرابط
+            // إذا فتح الصفحة بدون تمرير رابط
             qrContent.innerHTML = '<p class="status-msg error">❌ لم يتم تعيين باركود بعد</p><p class="sub-text">يرجى رفع الرمز من البوت أولاً</p>';
         }
     </script>
